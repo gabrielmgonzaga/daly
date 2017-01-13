@@ -1,0 +1,28 @@
+{
+  "name": "daly",
+  "version": "1.0.0",
+  "description": "Daly is a weather searching application where users can save their search results.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielmgonzaga/daly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielmgonzaga/daly/issues"
+  },
+  "homepage": "https://github.com/gabrielmgonzaga/daly#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "knex": "^0.12.6",
+    "pg": "^6.1.2"
+  }
+}
