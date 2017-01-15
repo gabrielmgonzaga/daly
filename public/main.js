@@ -16,6 +16,9 @@ const kelvinToFahrenheit = function(kelvin) {
   return fahrenheit.toFixed()
 }
 
+/**
+* Helper function that deletes individual components.
+*/
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
