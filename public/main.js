@@ -16,6 +16,12 @@ const kelvinToFahrenheit = function(kelvin) {
   return fahrenheit.toFixed()
 }
 
+function empty(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild)
+  }
+}
+
 /**
 * Component that creates queried cities.
 */
@@ -32,6 +38,7 @@ const renderCity = (json, element) => {
   const $xButton = document.createElement('button')
   $xButton.textContent = 'X'
   $xButton.setAttribute('id', 'xbutton')
+  $xButton.addEventListener('click', () => empty($main))
 
   const $temp = document.createElement('div')
   $temp.textContent = kelvinToFahrenheit(json.list[0].main.temp)
