@@ -5,9 +5,6 @@ const $form = document.querySelector('form')
 const $searchInput = $form.querySelector('input')
 const $cityListDiv = document.getElementById('city-list')
 
-const API_KEY = '6fe56e88046e208eb2ba45d63105ddcf'
-const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
-
 /**
 * Helper function that converts kelvin to fahrenheit
 */
@@ -70,11 +67,10 @@ const openWeatherQuery = (event) => {
   const cityValue = $searchInput.value
   $searchInput.value = ''
 
-  const url = `${ROOT_URL}&q=${cityValue},us`
+  const url = `/weather/${cityValue}`
 
   fetch(url)
-    .then(response => response.json())
-    .then(json => renderCity(json, $cityListDiv))
+    .then(json => console.log(json))
     .catch(error => error)
 }
 
