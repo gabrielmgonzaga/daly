@@ -35,9 +35,6 @@ const renderCity = (json, element) => {
   const $city = document.createElement('h3')
   $city.textContent = json.city.name
 
-  const $map = document.createElement('div')
-  $map.textContent = '[this where the map will go, lily was here]'
-
   const $xButton = document.createElement('button')
   $xButton.textContent = 'X'
   $xButton.setAttribute('id', 'xbutton')
@@ -51,9 +48,10 @@ const renderCity = (json, element) => {
 
   const $saveButton = document.createElement('button')
   $saveButton.textContent = 'Save'
+  $saveButton.setAttribute('id', 'saveButton')
+  $saveButton.addEventListener('click', () => console.log('hello'))
 
   $main.appendChild($city)
-  $main.appendChild($map)
   $main.appendChild($xButton)
   $main.appendChild($temp)
   $main.appendChild($weatherSnapshot)
