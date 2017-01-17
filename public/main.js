@@ -70,7 +70,9 @@ const openWeatherQuery = (event) => {
   const url = `/weather/${cityValue}`
 
   fetch(url)
-    .then(json => console.log(json))
+    .then(body => body.json())
+    .then(json => JSON.parse(json))
+    .then(data => renderCity(data, $cityListDiv))
     .catch(error => error)
 }
 
