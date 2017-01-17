@@ -1,4 +1,65 @@
-body {
-  margin: 0 auto;
+html, body {
+  height: 100%;
+  letter-spacing: .5px;
+  font-family: 'Open Sans', 'Helvetica Neue';
+}
+
+/* Landing View */
+
+#cover {
+  background: url('images/sky.jpg') center center no-repeat;
+  background-size: cover;
   height: 100%;
 }
+
+.landing {
+  height: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.landing h1 {
+  color: #3f3f3f;
+  font-weight: bold;
+  font-size: 400%;
+}
+
+.landing p {
+  color: white;
+}
+
+/* Phones */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  .landing {
+    padding-top: 40%;
+  }
+  .form {
+    margin-left: 12%;
+  }
+  .form input {
+    margin-bottom: 5%;
+    border: 1px solid #ddd;
+  }
+  .form button {
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+}
+
+/* ipad / desktops */
+@media only screen
+and (min-width : 768px) {
+  .landing {
+    padding-top: 25%;
+  }
+  .form {
+    margin-left: 22%;
+  }
+  .form input {
+    border: 1px solid #ddd;
+  }
+}
+
+/* END */
