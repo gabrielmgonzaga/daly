@@ -4,21 +4,25 @@ html, body {
   font-family: 'Open Sans', 'Helvetica Neue';
 }
 
+#logo {
+  text-decoration: none;
+}
+
 /* Landing View */
 
 #cover {
-  background: url('images/sky.jpg') center center no-repeat;
+  background: url('../images/sky.jpg') center center no-repeat;
   background-size: cover;
   height: 100%;
 }
 
 .landing {
-  height: 100%;
   text-align: center;
   font-weight: bold;
 }
 
 .landing h1 {
+  display: inline-block;
   color: #3f3f3f;
   font-weight: bold;
   font-size: 400%;
@@ -34,12 +38,13 @@ and (min-device-width : 320px)
 and (max-device-width : 480px) {
   .landing {
     padding-top: 40%;
+    height: 50%;
   }
   .form {
     margin-left: 12%;
   }
   .form input {
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     border: 1px solid #ddd;
   }
   .form button {
@@ -48,7 +53,7 @@ and (max-device-width : 480px) {
   }
 }
 
-/* ipad / desktops */
+/* Ipads */
 @media only screen
 and (min-width : 768px) {
   .landing {
@@ -58,7 +63,35 @@ and (min-width : 768px) {
     margin-left: 22%;
   }
   .form input {
-    border: 1px solid #ddd;
+    border: 1px solid #6f6f6f;
+  }
+}
+
+/* Desktops */
+@media only screen
+and (min-width : 1270px) {
+  .landing {
+    padding-top: 20%;
+  }
+  .form {
+    margin-left: 33%;
+  }
+  .form input {
+    border: 1px solid #6f6f6f;
+  }
+}
+
+/* Large screens */
+@media only screen
+and (min-width : 1824px) {
+  .landing {
+    padding-top: 15%;
+  }
+  .form {
+    margin-left: 33%;
+  }
+  .form input {
+    border: 1px solid #6f6f6f;
   }
 }
 

@@ -16,42 +16,46 @@ const kelvinToFahrenheit = function(kelvin) {
 /**
 * Helper function that deletes individual components.
 */
-function empty(element) {
-  while (element.firstChild) {
-    element.removeChild(element.firstChild)
-  }
-}
+const empty = (element) => element.remove()
 
 /**
 * Component that creates queried cities.
 */
 const renderCity = (json, element) => {
 
+  // When city is rendered. The landing page input transitions up.
+  const $cover = document.getElementById('cover')
+  const $landing = document.querySelector('.landing')
+  $landing.style.paddingTop = '40px'
+  $cover.style.height = '300px'
+
   const $main = document.createElement('div')
+  $main.classList.add('component')
 
   const $city = document.createElement('h3')
   $city.textContent = json.city.name
 
-  const $xButton = document.createElement('button')
-  $xButton.textContent = 'X'
-  $xButton.setAttribute('id', 'xbutton')
-  $xButton.addEventListener('click', () => empty($main))
-
-  const $temp = document.createElement('div')
-  $temp.textContent = kelvinToFahrenheit(json.list[0].main.temp)
+  const $temp = document.createElement('h2')
+  const F = kelvinToFahrenheit(json.list[0].main.temp)
+  $temp.textContent = F + '\xB0F'
 
   const $weatherSnapshot = document.createElement('div')
-  $weatherSnapshot.textContent = json.list[0].weather[0].description
+  $weatherSnapshot.textContent = '- ' + json.list[0].weather[0].description
+
+  const $xButton = document.createElement('button')
+  $xButton.textContent = 'Remove'
+  $xButton.classList.add('btn', 'btn-danger', 'btn-md')
+  $xButton.addEventListener('click', () => empty($main))
 
   const $saveButton = document.createElement('button')
   $saveButton.textContent = 'Save'
-  $saveButton.setAttribute('id', 'saveButton')
+  $saveButton.classList.add('btn', 'btn-primary', 'btn-md', 'btn-save')
   $saveButton.addEventListener('click', () => console.log('hello'))
 
   $main.appendChild($city)
-  $main.appendChild($xButton)
   $main.appendChild($temp)
   $main.appendChild($weatherSnapshot)
+  $main.appendChild($xButton)
   $main.appendChild($saveButton)
 
   return element.appendChild($main)
