@@ -2,6 +2,7 @@ const express = require('express')
 const secret = require('./config')
 const request = require('request')
 const bodyParser = require('body-parser')
+
 const knex = require('knex')({
   client: 'pg',
   connection: {
@@ -30,13 +31,21 @@ app.get('/weather/:city', (req, res) => {
   })
 })
 
+app.get('/saved/cities', (req, res) => {
+  knex
+    .table('cities')
+    .select()
+    .then(cities => res.json(cities))
+})
+
 // Save route
 app.post('/save', (req, res) => {
-  console.log(req.body)
-  knex('cities')
-    .insert(req.body.name)
-    .into('name')
+  knex
+    .table('cities')
+    .insert(req.body)
+    .into('cities')
     .returning(['id', 'name'])
+    .then(city => res.json(city[0]))
 })
 
 // Server
