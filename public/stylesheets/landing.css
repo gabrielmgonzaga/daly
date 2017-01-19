@@ -37,7 +37,15 @@ button:hover {
   color: white;
 }
 
-#saved-cities {
+#saved-cities-button {
+  position: absolute;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  visibility: hidden;
+}
+
+#back-button {
   margin-top: 25px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
