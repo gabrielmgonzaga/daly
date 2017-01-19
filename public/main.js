@@ -8,7 +8,7 @@ const $cityListDiv = document.getElementById('city-list')
 /**
 * Helper function that converts kelvin to fahrenheit
 */
-const kelvinToFahrenheit = function(kelvin) {
+const kelvinToFahrenheit = (kelvin) => {
   const fahrenheit = 1.8 * (kelvin - 273) + 32
   return fahrenheit.toFixed()
 }
@@ -50,7 +50,24 @@ const renderCity = (json, element) => {
   const $saveButton = document.createElement('button')
   $saveButton.textContent = 'Save'
   $saveButton.classList.add('btn', 'btn-primary', 'btn-md', 'btn-save')
-  $saveButton.addEventListener('click', () => console.log('hello'))
+
+  // Event listener to save a city
+  $saveButton.addEventListener('click', () => {
+
+    const city = {
+      name: json.city.name
+    }
+
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(city)
+    }
+
+    fetch('/save', options)
+      .then(body => console.log(body))
+      .catch(error => error)
+  })
 
   $main.appendChild($city)
   $main.appendChild($temp)
