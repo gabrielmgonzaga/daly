@@ -24,12 +24,6 @@ function fahrenheitToCelsius(fahrenheit) {
   return f.toFixed() + '\xB0C'
 }
 
-// Helper function that converts C to F
-function celsiusToFahrenheit(celsius) {
-  const c = celsius * 1.8 + 32
-  return c.toFixed() + '\xB0F'
-}
-
 // Helper function that capitalizes the first letter of a string.
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
