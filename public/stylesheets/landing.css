@@ -37,6 +37,10 @@ button:hover {
   color: white;
 }
 
+#buttons {
+  margin-top: 10px;
+}
+
 #saved-cities-button {
   position: absolute;
   margin-top: 25px;
@@ -50,6 +54,21 @@ button:hover {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   visibility: hidden;
+}
+
+.btn-group {
+  margin-top: 25px;
+  float: right;
+}
+
+.active {
+  background-color: rgb(176,214,250) !important;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 0;
+  border-color: #3f3f3f;
 }
 
 /* Phones */

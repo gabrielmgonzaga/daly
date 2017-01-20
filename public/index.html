@@ -34,10 +34,15 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-6 col-md-12">
-          <div>
+          <div id="buttons">
             <button class="btn btn-default btn-md" id="saved-cities-button">Saved Cities</button>
             <button class="btn btn-default btn-md" id="back-button">Back</button>
+            <div class="btn-group btn-group-md" role="group">
+              <button id="fahrenheit" class="btn btn-secondary active" type="button">&#8457</button>
+              <button id="celsius" class="btn btn-secondary" type="button">&#8451</button>
+            </div>
           </div>
+          <hr />
           <!-- UI View -->
           <div id="city-list"></div>
           <div id="saved-list"></div>
