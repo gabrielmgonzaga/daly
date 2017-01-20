@@ -19,6 +19,11 @@ const kelvinToFahrenheit = (kelvin) => {
 // Helper function that deletes individual components.
 const empty = (element) => element.remove()
 
+// Helper function that formats dates from `2017-01-20 06:00:00` to `2017/01/20`
+const dateFormat = (array) => {
+  return array.split(' ')[0].replace(/-/g, '/')
+}
+
 // Function call to the open weather api.
 const openWeatherQuery = (event) => {
 
@@ -164,6 +169,15 @@ const renderCity = (json, element) => {
       .then(body => body.json())
       .catch(error => error)
   })
+
+  // Weather Data Object for d3 //
+  const data = json.list.map(i => {
+    return {
+      temp: Number(kelvinToFahrenheit(i.main.temp)),
+      date: dateFormat(i.dt_txt)
+    }
+  })
+  console.log(data)
 
   $main.appendChild($city)
   $main.appendChild($temp)
