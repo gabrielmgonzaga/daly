@@ -40,6 +40,7 @@ const openWeatherQuery = (event) => {
 
 // Back button which hides the saved cities list
 const hideSavedCities = () => {
+
   $cityListDiv.style.visibility = 'visible'
   $cityListDiv.style.position = 'relative'
 
@@ -63,7 +64,7 @@ const showSavedCities = () => {
 
   $backButton.style.visibility = 'visible'
 
-  fetch('/saved/cities')
+  fetch('/saved/cities/')
     .then(body => body.json())
     .then(cities => renderSavedCity(cities, $savedListDiv))
     .catch(error => error)
@@ -92,7 +93,16 @@ const renderSavedCity = (array, element) => {
     const $deleteButton = document.createElement('button')
     $deleteButton.textContent = 'Delete'
     $deleteButton.classList.add('btn', 'btn-danger', 'btn-md')
-    $deleteButton.addEventListener('click', () => {})
+
+    // Event listener to delete cities from the database.
+    $deleteButton.addEventListener('click', () => {
+
+      fetch('/city/' + city.cityId, { method: 'DELETE' })
+        .then()
+        .catch(error => error)
+
+      empty($main)
+    })
 
     $main.appendChild($city)
     $main.appendChild($temp)
@@ -151,7 +161,7 @@ const renderCity = (json, element) => {
     }
 
     fetch('/save', options)
-      .then()
+      .then(body => body.json())
       .catch(error => error)
   })
 

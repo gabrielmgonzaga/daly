@@ -32,7 +32,7 @@ app.get('/weather/:city', (req, res) => {
   })
 })
 
-// Route to get saved cities
+// Saved cities route
 app.get('/saved/cities', (req, res) => {
   knex
     .select()
@@ -43,7 +43,7 @@ app.get('/saved/cities', (req, res) => {
           const url = `${ROOT_URL}&q=${city.name},us`
           request(url, { json: true }, (error, response, body) => {
             if (error) reject(error)
-            resolve(body)
+            resolve(Object.assign({}, body, { cityId: city.id }))
           })
         })
       })
@@ -60,6 +60,15 @@ app.post('/save', (req, res) => {
     .into('cities')
     .returning(['id', 'name'])
     .then(city => res.json(city[0]))
+})
+
+// Delete route
+app.delete('/city/:id', (req, res) => {
+  knex
+    .table('cities')
+    .where('id', req.params.id)
+    .del()
+    .then(res.sendStatus(204))
 })
 
 // Server
