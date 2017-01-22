@@ -14,10 +14,11 @@
   margin-bottom: 0;
   margin-left: 40px;
   width: 80%;
-  border: 2px solid #ddd;
-  border-radius: 8px;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  border-radius: 10px;
   text-align: center;
-  background-color: #fff;
+  background-color: #eee;
 }
 
 .component h2 {
