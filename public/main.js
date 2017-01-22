@@ -4,9 +4,6 @@
 const $form = document.querySelector('form')
 const $searchInput = $form.querySelector('input')
 const $cityListDiv = document.getElementById('city-list')
-const $savedListDiv = document.getElementById('saved-list')
-const $savedCitiesButton = document.getElementById('saved-cities-button')
-const $backButton = document.getElementById('back-button')
 const $celsiusButton = document.getElementById('celsius')
 const $fahrenheitButton = document.getElementById('fahrenheit')
 
@@ -42,8 +39,6 @@ const openWeatherQuery = (event) => {
 
   event.preventDefault()
 
-  hideSavedCities()
-
   const cityValue = $searchInput.value
   $searchInput.value = ''
 
@@ -56,111 +51,7 @@ const openWeatherQuery = (event) => {
     .catch(error => error)
 }
 
-// Back button which hides the saved cities list
-const hideSavedCities = () => {
-
-  $cityListDiv.style.visibility = 'visible'
-  $cityListDiv.style.position = 'relative'
-
-  $savedListDiv.style.visibility = 'hidden'
-  $savedListDiv.style.position = 'absolute'
-
-  $backButton.style.visibility = 'hidden'
-  $savedCitiesButton.style.visibility = 'visible'
-}
-
-// Saved cities button which displays the saved cities list.
-const showSavedCities = () => {
-
-  $cityListDiv.style.visibility = 'hidden'
-  $cityListDiv.style.position = 'absolute'
-
-  $savedListDiv.style.visibility = 'visible'
-  $savedListDiv.style.position = 'relative'
-
-  $savedCitiesButton.style.visibility = 'hidden'
-
-  $backButton.style.visibility = 'visible'
-
-  fetch('/saved/cities/')
-    .then(body => body.json())
-    .then(cities => renderSavedCity(cities, $savedListDiv))
-    .catch(error => error)
-}
-
 /***********************  Components ********************************/
-
-// Component that creates saved cities.
-const renderSavedCity = (array, element) => {
-
-  return array.map(city => {
-
-    const $main = document.createElement('div')
-    $main.classList.add('component')
-
-    const $city = document.createElement('h3')
-    $city.textContent = city.city.name
-
-    const $temp = document.createElement('h2')
-    const F = kelvinToFahrenheit(city.list[0].main.temp)
-    $temp.textContent = F + '\xB0F'
-
-    // Event listener to transform Fahrenheit to Celsius
-    $fahrenheitButton.addEventListener('click', () => {
-      $temp.style.visibility = 'visible'
-      $temp.style.position = 'relative'
-
-      $tempCelsius.style.visibility = 'hidden'
-      $tempCelsius.style.position = 'absolute'
-
-      $celsiusButton.classList.remove('active')
-      $fahrenheitButton.classList.add('active')
-    })
-
-    const $tempCelsius = document.createElement('h2')
-    const C = fahrenheitToCelsius(F)
-    $tempCelsius.textContent = C
-    $tempCelsius.style.visibility = 'hidden'
-    $tempCelsius.style.position = 'absolute'
-
-      // Event listener to transform Fahrenheit to Celsius
-    $celsiusButton.addEventListener('click', () => {
-      $temp.style.visibility = 'hidden'
-      $temp.style.position = 'absolute'
-
-      $tempCelsius.style.visibility = 'visible'
-      $tempCelsius.style.position = 'relative'
-
-      $fahrenheitButton.classList.remove('active')
-      $celsiusButton.classList.add('active')
-    })
-
-    const $weatherSnapshot = document.createElement('div')
-    $weatherSnapshot.textContent = '- ' + city.list[0].weather[0].description
-
-    const $deleteButton = document.createElement('button')
-    $deleteButton.textContent = 'Delete'
-    $deleteButton.classList.add('btn', 'btn-danger', 'btn-md')
-
-    // Event listener to delete cities from the database.
-    $deleteButton.addEventListener('click', () => {
-
-      fetch('/city/' + city.cityId, { method: 'DELETE' })
-        .then()
-        .catch(error => error)
-
-      empty($main)
-    })
-
-    $main.appendChild($city)
-    $main.appendChild($temp)
-    $main.appendChild($tempCelsius)
-    $main.appendChild($weatherSnapshot)
-    $main.appendChild($deleteButton)
-
-    element.appendChild($main)
-  })
-}
 
 // Component that creates searched cities.
 const renderCity = (json, element) => {
@@ -168,14 +59,14 @@ const renderCity = (json, element) => {
   // When city is rendered. The landing page input transitions up.
   const $cover = document.getElementById('cover')
   const $landing = document.querySelector('.landing')
-  $landing.style.paddingTop = '40px'
-  $cover.style.height = '300px'
+  $landing.style.paddingTop = '25px'
+  $cover.style.height = '235px'
 
-  // Saved cities button appears
-  $savedCitiesButton.style.visibility = 'visible'
+  const $mainComponent = document.createElement('div')
+  $mainComponent.classList.add('component')
 
-  const $main = document.createElement('div')
-  $main.classList.add('component')
+  const $cityData = document.createElement('div')
+  $cityData.setAttribute('id', 'city-data')
 
   const $city = document.createElement('h3')
   $city.textContent = json.city.name
@@ -223,29 +114,7 @@ const renderCity = (json, element) => {
   const $xButton = document.createElement('button')
   $xButton.textContent = 'Remove'
   $xButton.classList.add('btn', 'btn-danger', 'btn-md')
-  $xButton.addEventListener('click', () => empty($main))
-
-  const $saveButton = document.createElement('button')
-  $saveButton.textContent = 'Save'
-  $saveButton.classList.add('btn', 'btn-primary', 'btn-md', 'btn-save')
-
-  // Event listener to save a city
-  $saveButton.addEventListener('click', () => {
-
-    const city = {
-      name: json.city.name
-    }
-
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(city)
-    }
-
-    fetch('/save', options)
-      .then(body => body.json())
-      .catch(error => error)
-  })
+  $xButton.addEventListener('click', () => empty($mainComponent))
 
   // Weather Data Object for d3 //
   const data = json.list.map(i => {
@@ -254,22 +123,17 @@ const renderCity = (json, element) => {
       date: dateFormat(i.dt_txt)
     }
   })
-  console.log(data)
 
-  $main.appendChild($city)
-  $main.appendChild($temp)
-  $main.appendChild($tempCelsius)
-  $main.appendChild($weatherSnapshot)
-  $main.appendChild($xButton)
-  $main.appendChild($saveButton)
+  $cityData.appendChild($city)
+  $cityData.appendChild($temp)
+  $cityData.appendChild($tempCelsius)
+  $cityData.appendChild($weatherSnapshot)
+  $cityData.appendChild($xButton)
+  $mainComponent.appendChild($cityData)
 
-  return element.appendChild($main)
+  return element.appendChild($mainComponent)
 }
 
 /************************* Event Listeners ***************************/
 
 $form.addEventListener('submit', openWeatherQuery)
-
-$savedCitiesButton.addEventListener('click', showSavedCities)
-
-$backButton.addEventListener('click', hideSavedCities)
