@@ -1,13 +1,11 @@
 const express = require('express')
-const secret = require('./config')
 const request = require('request')
-
 
 const app = express()
 
 app.use(express.static('public'))
 
-const API_KEY = secret.key
+const API_KEY = process.env.MY_SECRET
 const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`
 
 // Open weather api route
