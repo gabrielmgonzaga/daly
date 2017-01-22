@@ -1,5 +1,5 @@
 node_modules
 config.js
-.eslintrc
-.htmlhintrc
-.stylelintrc
+npm-debug.log
+.DS_Store
+/*.env

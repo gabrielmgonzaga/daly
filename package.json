@@ -4,6 +4,7 @@
   "description": "Daly is a weather searching application where users can save their search results.",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "dev": "nodemon app.js",
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
@@ -29,5 +30,10 @@
     "knex": "^0.12.6",
     "pg": "^6.1.2",
     "request": "^2.79.0"
+  },
+  {
+    "engines": {
+      "node": "6.9.3"
+    }
   }
 }
